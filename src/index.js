@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 // Import Sass
 import "./sass/app.scss";
 
-// Import script of bootstrap
+// Import script of bootstrap ( in index.html or here )
 import script from "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 
 // Import for router 
@@ -21,7 +21,7 @@ function Index() {
     <React.StrictMode>
       <Router basename="/">
           <App />
-          <script src={script}></script>
+          {/* <script src={script}></script> */}
       </Router>
     </React.StrictMode>
   );

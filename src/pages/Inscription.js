@@ -9,6 +9,7 @@ export default function Inscription({setUsers , users}) {
         name : useRef(""),
         email : useRef(""),
         password : useRef(""),
+        confirm_password : useRef(""),
         connected : false,
     });
 
@@ -22,15 +23,28 @@ export default function Inscription({setUsers , users}) {
         let name = form.name.current.value;
         let email = form.email.current.value;
         let password = form.password.current.value;
+        let confirm_password = form.confirm_password.current.value;
 
-        // Put data in our Object
-        let newForm = { name, email, password, connected: false };
-        // Update Data
-        setUsers([...users, newForm]);
-        // Update to origin
-        setForm({ name : "", email : "", password : "", connected : false})
-        // Redirection
-        navigate("/connexion");
+        let user = users.find((element) => element.email === form.email.current.value);
+
+        if (user) {
+            alert("You have already an account") ;
+        } else {
+            if (password == confirm_password) {
+                // Put data in our Object
+                let newForm = { name, email, password, connected: false };
+                // Update Data
+                setUsers([...users, newForm]);
+                // Update to origin
+                setForm({ name : "", email : "", password : "", confirm_password : "", connected : false});
+                // Redirection
+                navigate("/connexion");
+                
+            } else {
+                alert("Its not the same password");
+            }
+        }
+
     }
 
     return (
@@ -47,6 +61,10 @@ export default function Inscription({setUsers , users}) {
                 <div>
                     <label htmlFor="password">Mot de passe :</label>
                     <input type="password" name="password" id="password" ref={form.password} required />
+                </div>
+                <div>
+                    <label htmlFor="password">Confirmation mot de passe</label>
+                    <input type="password" name="confirm_password" id="confirm_password" ref={form.confirm_password} required/>
                 </div>
                 <button type="submit">Envoyez</button>
             </form>
